@@ -1,0 +1,69 @@
+package br.com.alura.notas;
+
+public class TestaMerge {
+	
+	public static void main(String[] args) {
+		
+		Nota[] notasDoMauricio = {
+			new Nota("Vinicius", 4),
+			new Nota("Mariana", 8),
+			new Nota("Paulo", 9),
+			new Nota("Carlos", 9.5)
+		};
+		
+		Nota[] notasDoAlberto = {
+				new Nota("Juliana", 2),
+				new Nota("Jonas", 6),
+				new Nota("Lucia", 7),
+				new Nota("Ana", 8.5),
+				new Nota("Guilherme", 10)
+			};
+		
+		
+		Nota[] rank = junta(notasDoMauricio, notasDoAlberto);
+		
+		for(Nota nota : rank) {
+			System.out.println(nota.getAluno() + " " + nota.getValor());
+		}
+	}
+
+	private static Nota[] junta(Nota[] notasDoMauricio, Nota[] notasDoAlberto) {
+		int total = notasDoAlberto.length + notasDoMauricio.length;
+		Nota[] resultado = new Nota[total];
+		
+		int atualDoMauricio = 0;
+		int atualDoAlberto = 0;
+		int atual = 0;
+		
+		while(atualDoMauricio < notasDoMauricio.length && atualDoAlberto < notasDoAlberto.length) {
+			
+			Nota nota1 = notasDoMauricio[atualDoMauricio];
+			Nota nota2 = notasDoAlberto[atualDoAlberto];
+		
+			System.out.println("Estou comparando " + nota1.getAluno() + " com " + nota2.getAluno());
+			if(nota1.getValor() < nota2.getValor()) {
+				resultado[atual] = nota1;
+				atualDoMauricio++;
+			} else {
+				resultado[atual] = nota2;
+				atualDoAlberto++;
+			}
+			
+			atual++;
+		}
+		while(atualDoMauricio < notasDoMauricio.length) {
+			resultado[atual] = notasDoMauricio[atualDoMauricio];
+			atual++;
+			atualDoMauricio++;
+		}
+		
+		while(atualDoAlberto < notasDoAlberto.length) {
+			resultado[atual] = notasDoAlberto[atualDoAlberto];
+			atual++;
+			atualDoAlberto++;
+		}
+		
+		
+		return resultado;
+	}
+}
